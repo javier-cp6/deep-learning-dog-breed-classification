@@ -39,3 +39,23 @@ Remember that your README should:
 
 ## Standout Suggestions
 **TODO (Optional):** This is where you can provide information about any standout suggestions that you have attempted.
+
+
+
+### References
+PyTorch Estimator  
+https://sagemaker.readthedocs.io/en/stable/frameworks/pytorch/sagemaker.pytorch.html
+
+Example
+https://aws.amazon.com/blogs/machine-learning/building-training-and-deploying-fastai-models-with-amazon-sagemaker/  
+https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/fastai_oxford_pets/fastai_lesson1_sagemaker_example.ipynb
+
+Debugging
+https://sagemaker-examples.readthedocs.io/en/latest/sagemaker-debugger/pytorch_model_debugging/pytorch_script_change_smdebug.html
+
+Choosing GPU
+https://towardsdatascience.com/choosing-the-right-gpu-for-deep-learning-on-aws-d69c157d8c86
+
+
+Inference Example
+https://sagemaker-examples.readthedocs.io/en/latest/frameworks/pytorch/get_started_mnist_deploy.html
