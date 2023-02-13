@@ -1,4 +1,4 @@
-# Image Classification using AWS SageMaker
+# Dog Breed Image Classification using AWS SageMaker and PyTorch
 
 Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This can be done on either the provided dog breed classication data set or one of your choice.
 
@@ -15,47 +15,57 @@ The project is designed to be dataset independent so if there is a dataset that 
 Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has access to the data. 
 
 ## Hyperparameter Tuning
-What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
+PyTorch's TorchVision package provides pre-trained models for different purposes sucha as image classification. ResNet-18 is a convolutional neural network that can classify images into 1000 object categories which is suitable for this project. 
 
-Remember that your README should:
-- Include a screenshot of completed training jobs
-- Logs metrics during the training process
-- Tune at least two hyperparameters
-- Retrieve the best best hyperparameters from all your training jobs
+The pre-trained model is tuned with the following hyperparameters:
+
+```python
+hyperparameter_ranges = {
+    "ContinuousParameter(0.001, 0.1)",
+    "batch-size": CategoricalParameter([32, 64, 128, 256, 512]),
+    "epochs": IntegerParameter(2, 4)"
+}
+```
+
+Completed training jobs:  
+<img src="images/training_jobs.png" alt="training_jobs" width="500"/>
+
+Logs metrics during the training process:  
+<img src="images/training_job_metrics.png" alt="best_training_job" width="500"/>
+
+
+Best hyperparameters from all your training jobs:  
+<img src="images/best_training_job.png" alt="best_training_job" width="500"/>
 
 ## Debugging and Profiling
 **TODO**: Give an overview of how you performed model debugging and profiling in Sagemaker
 
+The following rules are set for profiling:
+```python
+rules = [
+    Rule.sagemaker(rule_configs.loss_not_decreasing()),
+    ProfilerRule.sagemaker(rule_configs.LowGPUUtilization()),
+    ProfilerRule.sagemaker(rule_configs.ProfilerReport()),
+    Rule.sagemaker(rule_configs.vanishing_gradient()),
+    Rule.sagemaker(rule_configs.overfit()),
+    Rule.sagemaker(rule_configs.overtraining()),
+    Rule.sagemaker(rule_configs.poor_weight_initialization()),
+]
+```
+
 ### Results
-**TODO**: What are the results/insights did you get by profiling/debugging your model?
-
-**TODO** Remember to provide the profiler html/pdf file in your submission.
-
+The profiling results are attached into [profiler-report.html](/ProfilerReport/profiler-output/profiler-report.html).
 
 ## Model Deployment
-**TODO**: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
-
-**TODO** Remember to provide a screenshot of the deployed active endpoint in Sagemaker.
-
-## Standout Suggestions
-**TODO (Optional):** This is where you can provide information about any standout suggestions that you have attempted.
-
+An endpoint is deployed in Sagemaker in order to test the model with sample images:
+<img src="images/endpoint.png" alt="endpoint" width="500"/>
 
 
 ### References
-PyTorch Estimator  
-https://sagemaker.readthedocs.io/en/stable/frameworks/pytorch/sagemaker.pytorch.html
+- PyTorch Estimator. Sagemaker. https://sagemaker.readthedocs.io/en/stable/frameworks/pytorch/sagemaker.pytorch.html
 
-Example
-https://aws.amazon.com/blogs/machine-learning/building-training-and-deploying-fastai-models-with-amazon-sagemaker/  
-https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/fastai_oxford_pets/fastai_lesson1_sagemaker_example.ipynb
+- Building, training, and deploying fastai models with Amazon SageMaker. AWS. https://aws.amazon.com/blogs/machine-learning/building-training-and-deploying-fastai-models-with-amazon-sagemaker/ https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/fastai_oxford_pets/fastai_lesson1_sagemaker_example.ipynb
 
-Debugging
-https://sagemaker-examples.readthedocs.io/en/latest/sagemaker-debugger/pytorch_model_debugging/pytorch_script_change_smdebug.html
+- Using Amazon SageMaker Debugger for PyTorch Training Jobs. Sagemaker. https://sagemaker-examples.readthedocs.io/en/latest/sagemaker-debugger/pytorch_model_debugging/pytorch_script_change_smdebug.html
 
-Choosing GPU
-https://towardsdatascience.com/choosing-the-right-gpu-for-deep-learning-on-aws-d69c157d8c86
-
-
-Inference Example
-https://sagemaker-examples.readthedocs.io/en/latest/frameworks/pytorch/get_started_mnist_deploy.html
+- Deploy a Trained PyTorch Model. Sagemaker. https://sagemaker-examples.readthedocs.io/en/latest/frameworks/pytorch/get_started_mnist_deploy.html
