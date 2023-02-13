@@ -61,7 +61,7 @@ An endpoint is deployed in Sagemaker in order to test the model with sample imag
 <img src="images/endpoint.png" alt="endpoint" width="500"/>
 
 
-### References
+## References
 - PyTorch Estimator. Sagemaker. https://sagemaker.readthedocs.io/en/stable/frameworks/pytorch/sagemaker.pytorch.html
 
 - Building, training, and deploying fastai models with Amazon SageMaker. AWS. https://aws.amazon.com/blogs/machine-learning/building-training-and-deploying-fastai-models-with-amazon-sagemaker/ https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/fastai_oxford_pets/fastai_lesson1_sagemaker_example.ipynb
